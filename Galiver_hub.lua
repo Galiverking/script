@@ -1448,6 +1448,7 @@ local Main = Win.CraftTab({
 
 local Genaral = Main.AddPage({
     Title = "Genaral",
+	Side = 1,
 })
 
 local Stutas = Genaral.AddLabel({
@@ -2654,38 +2655,48 @@ spawn(function()
     end)
 ---------AutoFarmLevel
 
-local Time = Genaral.AddPage({
+local Time = Main.AddPage({
     Title = "[ Time ]",
     Side = 2
 })
 Time.AddLabel({
     Title = "[ GALIVER X HUB Paid Script ]"
 })
-local Time = Time.AddLabel({
+local TimeServer = Time.AddLabel({
     Title = "Time"
 })
-spawn(function() getgenv().Time = true;while true do wait(.1) UpdateTime() end end);function UpdateTime() local date = os.date("*t");local hour = (date.hour) % 24;local ampm = hour < 12 and "AM" or "PM";local timezone = string.format("%02i:%02i:%02i %s", ((hour -1) % 12) + 1, date.min, date.sec, ampm);local datetime = string.format("%02d/%02d/%04d", date.day, date.month, date.year);local LocalizationService = game:GetService("LocalizationService");local Players = game:GetService("Players");local player = Players.LocalPlayer;local name = player.Name;local result, code = pcall(function()   return LocalizationService:GetCountryRegionForPlayerAsync(player)  end);Time:Set(" : " .. timezone);Time:Set("Time: " .. datetime .. " [ " .. code .. " ]");spawn(function() if getgenv().Time then pcall(function()  while wait() do  Time()  end end) end end) end
+spawn(function()
+    while Wait() do 
+        pcall(function()
+            local GameTime = math.floor(workspace.DistributedGameTime+0.5)
+            local Hour = math.floor(GameTime/(60^2))%24
+            local Minute = math.floor(GameTime/(60^1))%60
+            local Second = math.floor(GameTime/(60^0))%60
+            TimeServer:Set("Server Time : "..Hour.."(hr) "..Minute.."(m) "..Second.."(s)")
+        end)
+    end
+end)
 
-local Set = Genaral.AddPage({
+local Setting = Main.AddPage({
     Title = "[ Settings Config ]",
     Side = 2
 })
-Set.AddLabel({
+Setting.AddLabel({
     Title = "[✅] : Enabled Config"
 })
-Set.AddLabel({
+Setting.AddLabel({
     Title = "[✅] : Enabled Auto Farm"
 })
-Set.AddLabel({
+Setting.AddLabel({
     Title = "[✅] : Enabled Fast Attack"
 })
-Set.AddLabel({
+Setting.AddLabel({
     Title = "[✅] : Enabled Bypass TP"
 })
-Set.AddLabel({
+Setting.AddLabel({
     Title = "[✅] : Enabled Double Quest"
 })
-local Melee = Genaral.AddPage({
+local Melee = Main.AddPage({
     Title = "[ Melee Check ]",
     Side = 2
 })
@@ -2736,7 +2747,7 @@ task.spawn(
         end
     end
 )
-local Status = Genaral.AddPage({
+local Status = Main.AddPage({
     Title = "[ Status ]",
     Side = 1
 })
@@ -2812,7 +2823,7 @@ FragmentsStast:Set("Fragments : "..game:GetService("Players").localPlayer.Data.F
 end)
 end
 end)
-local World = Genaral:AddPage({
+local World = Main:AddPage({
     Title = "[ Check World ]",
     Side = 2
 })
@@ -2864,7 +2875,7 @@ task.spawn(
         )
     end
 )
-local Sword = Genaral.AddPage({
+local Sword = Main.AddPage({
     Title = "[ Check Sword ]",
     Side = 1
 })
@@ -2949,7 +2960,7 @@ task.spawn(
         end
     end
 )
-local Gun = Genaral.AddPage({
+local Gun = Main.AddPage({
     Title = "[ Check Gun ]",
     Side = 2
 })
@@ -2985,7 +2996,7 @@ task.spawn(
         end
     end
 )
-local Quest = Genaral.AddPage({
+local Quest = Main.AddPage({
     Title = "[ Check Quest ]",
     Side = 2
 })
@@ -3014,7 +3025,7 @@ task.spawn(
         end
     end
 )
-local LegenSword =  Genaral.AddPage({
+local LegenSword =  Main.AddPage({
     Title = "[ Check Legendary Sword ]",
     Side = 1
 })
